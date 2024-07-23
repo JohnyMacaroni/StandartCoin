@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify StandardCoin</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%; /* Adjust container width as needed */
+             /* Limit container width for larger screens */
+            overflow: hidden; /* Prevent overflow content from showing */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+        
+        label {
+            font-size: 1.1em;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            width: calc(100% - 20px); /* Calculate width to account for padding */
+            box-sizing: border-box; /* Ensure padding is included in width calculation */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #coin-info {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: left; /* Align text to the left */
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            word-break: break-all; 
+        }
+
+        #status {
+            font-size: 1.2em;
+            margin-top: 10px;
+            text-align: center; /* Align text center for better readability */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>StandarCoin Verification signature</h1>
+        <form id="verifyForm" action="{% url 'get_verify' %}" method="get">
+            <!-- Não precisa de {% csrf_token %} para solicitações GET -->
+            <label for="coin_text">StandartCoin signature:</label>
+            <br>
+            <input type="text" id="coin_text" name="coin_text" required>
+            <br>
+            <label for="coin_text">Key:</label>
+            <br>
+            <input type="text" id="key" name="key" required>
+            <br>
+            <button type="submit">Verify</button>
+        </form>
+
+        {% if coin_info %}
+        <div id="response-message">
+            <p id="coin-info" style="text-align: center";><strong>StandarCoin:</strong>{{ coin_info }}</p>
+            <p id="coin-info" style="text-align: center";><strong>Key:</strong>{{ key }}</p>
+        </div>
+        {% else %}
+        <div>
+            <p id="coin-info" style="text-align: center;">No information available</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

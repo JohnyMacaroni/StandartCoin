@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congregate StandardCoin</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        label {
+            font-size: 1.1em;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #coin-info {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: left; /* Align text to the left */
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            word-break: break-all; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Congregate StandardCoin</h1>
+        <form method="GET" action="{% url 'congregate_coin' %}">
+            <label for="coins">Insert the encrypted coins and the corresponding keys (seperate each one by ";", for example : coin1;coin2 and so in the same order in keys ):</label>
+            <input type="text" id="coins" name="coins" required>
+            <input type="text" id="keys" name="keys" required>
+            <button type="submit">Congregate</button>
+        </form>
+        <div id="coin-info">
+            {% if coin_info %}
+                <p id="coin-info" style="text-align: center";><strong>StandarCoin:</strong>{{ coin_info }}</p>
+                <p id="coin-info" style="text-align: center";><strong>Key:</strong>{{ key }}</p>
+            {% else %}
+                <p>No coin information available.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

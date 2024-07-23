@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Coin</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        label {
+            font-size: 1.1em;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #sell_info {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .form-spacing {
+            display: grid;
+            gap: 20px; /* Space between grid items */
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Sell Coin</h1>
+        <p style="text-align: center;">Exchange: {{ rate }}$ per StandartCoin || Current Policy: {{policy}} </p>
+        <form action="{% url 'get_sell' %}" method="get">
+            <label for="wallet_info_label">Wallet:</label>
+            <input type="text" id="wallet_info" name="wallet_info" class="form-spacing" required  >
+            <label for="encrypted_coin_label">StandardCoin:</label>
+            <input type="text" id="encrypted_coin" name="encrypted_coin" class="form-spacing" required>
+            <label for="encrypted_coin_label">Key:</label>
+            <input type="text" id="key" name="key" class="form-spacing" required>
+            <button type="submit">Sell Coin</button>
+        </form>
+        {% if process %}
+        <p>The request has been successfuly submited, await the delivery.</p>
+        {% endif %}
+        <div>
+            <p id="sell-info">Note: The process will take time and you will only receive the amount minus blockchain fees.</p>
+        </div>
+    </div>
+</body>
+</html>
