@@ -84,6 +84,18 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbase_if0v',
+        'USER': 'dbase_if0v_user',
+        'PASSWORD': 'NuoYMIF5317mpTfGIjdutfLlfID5rdWd',
+        'HOST': 'dpg-cqmlqmdds78s73913bj0-a',  
+        'PORT': '5432',        
+    }
+}
+
+'''
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dbase',
         'USER': 'JOHNNY',
@@ -92,6 +104,7 @@ DATABASES = {
         'PORT': '3306',        
     }
 }
+'''
 
 WSGI_APPLICATION = 'StandartCoin.wsgi.application'
 
