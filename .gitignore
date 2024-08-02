@@ -1,0 +1,28 @@
+# Virtual environment
+venv/
+
+# Byte-compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Environment files
+.env
+*.env
+
+# Logs
+*.log
+
+# Other files to ignore (customize as needed)
+*.sqlite3
+.DS_Store
