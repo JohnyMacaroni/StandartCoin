@@ -36,7 +36,8 @@ SECRET_KEY = 'django-insecure-)k7saue@%m(4%l7xs2^pxo4tb*e#tml-@y$mz$!^rk@2+wrxej
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['standartcoin-world-reserve.onrender.com'
+]
 
 
 BASE_DIR =Path(__file__).resolve().parent.parent
