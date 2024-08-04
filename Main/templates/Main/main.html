@@ -66,9 +66,9 @@
         <h1>StandardCoin World Reserve</h1>
 
         <div class="links">
-            <a href="/main/create_coin" style="color: white; text-decoration: none; font-size: 1.2em;">Buy </a>
-            <a href="/main/verify_coin" style="color: white; text-decoration: none; font-size: 1.2em;">Verify </a>
-            <a href="/main/sell_coin" style="color: white; text-decoration: none; font-size: 1.2em;">Sell </a>
+            <a href="{% url 'create_coin_page' %}" style="color: white; text-decoration: none; font-size: 1.2em;">Buy </a>
+            <a href="{% url 'create_verify_page' %}" style="color: white; text-decoration: none; font-size: 1.2em;">Verify </a>
+            <a href="{% url 'create_sell_page' %}" style="color: white; text-decoration: none; font-size: 1.2em;">Sell </a>
 
         </div>
 
@@ -136,9 +136,9 @@
         <p>For more information, please contact our support team at : StandartCoin@outlook.pt.</p>
 
         <div class="links">
-            <a href="/main/congregate_coin" style="color: white; text-decoration: none; font-size: 1.2em;">Congregate</a>
-            <a href="/main/coins" style="color: white; text-decoration: none; font-size: 1.2em;">Public List</a>
-            <a href="/main/divide_coin" style="color: white; text-decoration: none; font-size: 1.2em;"> Divide </a>
+            <a href="{% url 'create_congregate_page' %}" style="color: white; text-decoration: none; font-size: 1.2em;">Congregate</a>
+            <a href="{% url 'coin_list' %}" style="color: white; text-decoration: none; font-size: 1.2em;">Public List</a>
+            <a href="{% url 'coin_list' %}" style="color: white; text-decoration: none; font-size: 1.2em;"> Divide </a>
         </div>
     </div>
 </body>

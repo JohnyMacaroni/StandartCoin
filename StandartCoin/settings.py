@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'dbase_if0v',
         'USER': 'dbase_if0v_user',
         'PASSWORD': 'NuoYMIF5317mpTfGIjdutfLlfID5rdWd',
-        'HOST': 'dpg-cqmlqmdds78s73913bj0-a',  
+        'HOST': 'dpg-cqmlqmdds78s73913bj0-a.oregon-postgres.render.com',  
         'PORT': '5432',        
     }
 }

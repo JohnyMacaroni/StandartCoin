@@ -6,7 +6,6 @@ from . import views
 
 urlpatterns=[
         path("",views.main, name="main"),
-        path("main/",views.main, name="main"),
         
         path('verify_coin/',views.create_verify_page, name="create_verify_page"),
         path('verify_coin/get_verify/',views.get_verify, name="get_verify"),
