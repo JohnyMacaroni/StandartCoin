@@ -18,6 +18,7 @@ class user_info(models.Model):
     email = models.TextField()
     encrypted_coin = models.TextField()
     delivered = models.BooleanField(default=False)
+    wallet = models.TextField(default='default')
 
 class withdraw(models.Model):
     wallet = models.TextField()

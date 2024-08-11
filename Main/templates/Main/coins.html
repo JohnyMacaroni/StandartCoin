@@ -73,11 +73,9 @@
                 </thead>
                 <tbody>
                     {% for coin in coins %}
-                    {% if forloop.counter0|divisibleby:2 %}
                     <tr>
                         <td>{{ coin.encrypted_coin }}</td>
                     </tr>
-                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

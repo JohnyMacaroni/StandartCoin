@@ -83,6 +83,13 @@
             border-radius: 5px;
             border: none;
         }
+        #wallet{
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
     </style>
 
     
@@ -96,11 +103,12 @@
         <div id="response-message">
             <p>{{ coin_info }}</p>
         </div>
+        
         {% elif payment_info == "BTC" %}
         <div>
             <p>Scan the QR code</p>
             <img src="{% static 'images/wallet_btc.png' %}" alt="btc">
-            <p>Wallet adress: bc1qdnv5lta0f6gpd9hfm2kv3exv23962zujh53lcw</p>
+            <p>Wallet adress: {{ wallet_adress }}</p>
 
             <p>Note: StandardCoin will be sent to your email adress, the amount is determined after blockcahin fees. Take into account that the verification process may take several minutes.</p>
 
@@ -142,22 +150,29 @@
 
         </div>
         {% else %}
+
+
         <form action="{% url 'get_coin' %}" method="get">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" step="0.01" required>
+            <!--<label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" step="0.01" required>-->
 
             <br>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <br>
 
+            <br>
+            <label for="wallet">Your Wallet:</label>
+            <input type="wallet" id="wallet" name="wallet" required>
+            <br>
+
             <label for="crypto">Select Cryptocurrency:</label>
             <select id="crypto" name="crypto" required>
                 <option value="BTC">Bitcoin (BTC)</option>
-                <option value="ETH">Ethereum (ETH)</option>
-                <option value="USDT">Tether (USDT)</option>
-                <option value="BNB">Binance Coin (BNB)</option>
-                <option value="SOL">Solana (SOL)</option>
+                <!--<option value="ETH">Ethereum (ETH)</option>-->
+                <!--<option value="USDT">Tether (USDT)</option>-->
+                <!--<option value="BNB">Binance Coin (BNB)</option>-->
+                <!--<option value="SOL">Solana (SOL)</option>-->
                 
             </select>
             

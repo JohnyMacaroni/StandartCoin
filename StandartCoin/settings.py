@@ -19,8 +19,6 @@ import os
 BINANCE_API_KEY='LokdiPARj5SU355tbEJeGJqeniNZwoFo7CVdVBxYxGto8HQ9oD5iY2vKHQ35eOAV'
 BINANCE_API_SECRET='7VIvkosEMcZvZxhbi9dw71eyDvVpbJhIGcUrFBOLhdC8Y5WoRySMVrXNLdzvxe9S'
 
-STATIC_URL = '/static/'
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,7 +84,7 @@ TEMPLATES = [
         },
     },
 ]
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -103,13 +101,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dbase',
-        'USER': 'JOHNNY',
+        'USER': 'root',
         'PASSWORD': 'estepcefixe',
         'HOST': 'localhost',  
         'PORT': '3306',        
     }
 }
-'''
+
 
 WSGI_APPLICATION = 'StandartCoin.wsgi.application'
 

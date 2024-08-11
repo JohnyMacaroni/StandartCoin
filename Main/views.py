@@ -13,11 +13,16 @@ from django.views.decorators.csrf import csrf_exempt
 import hmac
 import hashlib
 
-
+from celery import shared_task
 
 #90016878-c107-46dd-9c39-48916882bfcb
 
-#wallet btc :bc1qdnv5lta0f6gpd9hfm2kv3exv23962zujh53lcw
+wallet_btc_binance = 'bc1qdnv5lta0f6gpd9hfm2kv3exv23962zujh53lcw'
+
+wallet_btc_own = ''
+
+wallet_btc_coinbase = 'bc1q838skj78wrq8vq0f200hlteffuvvpgaphrxlhz'
+
 # wallet BNB :0xecfadd21cf0db805b06f0cb1667efd76135b233d
 #wallet ethereum :0xecfadd21cf0db805b06f0cb1667efd76135b233d
 #wallet usdt:TCmqfkuzeo1981xnJHu8zvjVqxKuS8nMBB
@@ -106,41 +111,27 @@ def create_coin_page(request):
     return render(request, 'Main/create_coin.html',{'policy':utils.get_policy(),'rate':utils.get_rate()})
 
 def get_coin(request):
+    
     try:
         if request.method == 'GET':
-            amount = request.GET.get('amount')
+            #amount = request.GET.get('amount')
             crypto =  request.GET.get('crypto')
             email = request.GET.get('email')
-            
-            if amount and float(amount)>0:
-                amount = utils.has_at_most_x_decimals(amount,2)
+            wallet = request.GET.get('wallet')
+            amount = 0
+
+            if 1 == 1:#amount and float(amount)>0:
+                #amount = utils.has_at_most_x_decimals(amount,2)
+                
                 crypto = utils.crypto(crypto)
                 
-                if amount and crypto and email:
+                if crypto and email:
                     
                     try:
-
-                        # Example: Creating a coin and saving it to the database
-                        coin, coin_db, key_two = utils.create_coin(amount)
-
-                        new_coin = Standart_Coin(**coin_db)
-                        
-                        new_email = user_info(email=str(email),encrypted_coin=coin)
-
-                        new_email.save()
-                        new_coin.save()
-
-                        
-                        # Construct the JSON response
-
-                        response_data = {
-                            'payment_info': crypto,
-                            'wallet_adress': "html",
-                            'policy': utils.get_policy(),
-                            'rate':utils.get_rate()
-                        }
-                        
+                        response_data = get_coin_qr_info(request, crypto, wallet)
+                       
                         return render(request, 'Main/create_coin.html', response_data)
+                        
                     except Exception as e:
                         return JsonResponse({'error': 'error'}, status=400)
                 else:
@@ -151,6 +142,71 @@ def get_coin(request):
             return JsonResponse({'error': 'Invalid request method','coin_info':'No coin information available'}, status=405)
     except Exception as e:
         return JsonResponse({'error': "Exception",'coin_info':"error"}, status=410)
+
+
+def get_coin_qr_info(request, crypto, wallet):
+    node_server_url = 'http://localhost:3000/check-wallet'
+    
+    # Example parameters to send to the Node.js function
+    params = {
+        'senderAddress': wallet,
+        'recipientAddress': wallet_btc_binance,
+        'currency': 'btc',
+        'amountSent': 0
+    }
+    response = requests.get(node_server_url, params=params)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        response_data = {
+            'payment_info': crypto,
+            'wallet_adress': wallet_btc_binance,
+            'policy': utils.get_policy(),
+            'rate':utils.get_rate()
+            }
+        
+        return response_data
+
+
+def get_coin_transaction_over(wallet, email, crypto):
+    node_server_url = 'http://localhost:3000/check-amount'
+
+    # Example parameters to send to the Node.js function
+    params = {
+        'senderAddress': wallet,
+        'recipientAddress': wallet_btc_binance,
+        'currency': 'btc',
+        'amountSent': 0
+    }
+
+
+    # Send a GET request to the Node.js server
+    response = requests.get(node_server_url, params=params)
+    data = response.json()
+
+    amount = data['amountSent']
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        
+        coin, coin_db, key_two = utils.create_coin(amount)
+        new_coin = Standart_Coin(**coin_db)
+        
+        new_email = user_info(email=str(email),encrypted_coin=coin,wallet=wallet)
+        
+        new_email.save()
+        new_coin.save()
+        # Return the JSON response from Node.js server as a Django JsonResponse
+
+        response_data = {
+        'payment_info': crypto,
+        'coin_info': { 'coin' : coin, 'key' : key_two},
+        'wallet_adress': wallet_btc_binance,
+        'policy': utils.get_policy(),
+        'rate':utils.get_rate()
+        }
+        return render('Main/create_coin.html', response_data)
+    
 
 #sell_coin
 def create_sell_page(request):
