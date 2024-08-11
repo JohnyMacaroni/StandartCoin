@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 import hmac
 import hashlib
 
-from celery import shared_task
+#from celery import shared_task
 
 #90016878-c107-46dd-9c39-48916882bfcb
 
