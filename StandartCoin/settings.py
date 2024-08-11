@@ -84,7 +84,7 @@ TEMPLATES = [
         },
     },
 ]
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -107,7 +107,7 @@ DATABASES = {
         'PORT': '3306',        
     }
 }
-
+'''
 
 WSGI_APPLICATION = 'StandartCoin.wsgi.application'
 
