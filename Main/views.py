@@ -128,8 +128,9 @@ def get_coin(request):
                 if crypto and email:
                     
                     try:
+                        print(11)
                         response_data = get_coin_qr_info(request, crypto, wallet)
-                       
+                        print(22)
                         return render(request, 'Main/create_coin.html', response_data)
                         
                     except Exception as e:
@@ -143,29 +144,48 @@ def get_coin(request):
     except Exception as e:
         return JsonResponse({'error': "Exception",'coin_info':"error"}, status=410)
 
+def is_valid_address(address):
+    response = requests.get(f'https://api.blockcypher.com/v1/btc/main/addrs/{address}')
+    data = response.json()
+    if response.status_code == 200:
+        return True
+    return False
 
 def get_coin_qr_info(request, crypto, wallet):
-    node_server_url = 'http://localhost:3000/check-wallet'
     
-    # Example parameters to send to the Node.js function
     params = {
         'senderAddress': wallet,
         'recipientAddress': wallet_btc_binance,
         'currency': 'btc',
         'amountSent': 0
     }
-    response = requests.get(node_server_url, params=params)
-    
-    # Check if the request was successful
-    if response.status_code == 200:
-        response_data = {
-            'payment_info': crypto,
-            'wallet_adress': wallet_btc_binance,
-            'policy': utils.get_policy(),
-            'rate':utils.get_rate()
-            }
+
+    sender_address = wallet
+    recipient_address = wallet_btc_binance
+
+    # Check if addresses are provided
+    if not sender_address or not recipient_address:
+        return {'error': 'Invalid addresses'}
+    try:
+        # Validate the addresses
+
+        is_valid_sender = is_valid_address(sender_address)
+
+        is_valid_recipient = is_valid_address(recipient_address)
+
         
-        return response_data
+        if is_valid_sender and is_valid_recipient:
+            return {
+                'payment_info': crypto,
+                'wallet_address': wallet_btc_binance,
+                'policy': utils.get_policy(),
+                'rate': utils.get_rate()
+            }
+        print(5)
+        return {'error': 'Invalid addresses'}
+
+    except Exception as error:
+        return {'error': str(error)}
 
 
 def get_coin_transaction_over(wallet, email, crypto):
